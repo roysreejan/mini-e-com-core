@@ -2,11 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const connectDB = require("../src/config/db");
 // const productRoutes = require('./routes/productRoutes');
 // const cartRoutes = require('./routes/cartRoutes');
 // const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
+
+connectDB();
 
 // Middleware
 app.use(cors());

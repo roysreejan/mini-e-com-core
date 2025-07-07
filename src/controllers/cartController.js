@@ -72,13 +72,15 @@ exports.removeItemFromCart = catchAsync(async (req, res, next) => {
   const cart = await Cart.findOne({ cartId: CART_ID });
   if (!cart) return next(new AppError('Cart not found', 404));
 
-  const item = cart.items.id(itemId);
-  if (!item) return next(new AppError('Cart item not found', 404));
+  const itemIndex = cart.items.findIndex(item => item._id.toString() === itemId);
+  if (itemIndex === -1) {
+    return next(new AppError('Cart item not found', 404));
+  }
 
-  item.remove();
+  cart.items.splice(itemIndex, 1);
   await cart.save();
 
-  res.status(204).json({ status: 'success', data: null });
+  res.status(200).json({ status: 'success', data: { cart } });
 });
 
 exports.clearCart = catchAsync(async (req, res, next) => {

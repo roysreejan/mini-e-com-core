@@ -17,14 +17,6 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
-// Health Check Endpoint
-app.get('/health', (req, res) => {
-  res.status(200).json({ 
-    status: 'OK', 
-    timestamp: new Date().toISOString() 
-  });
-});
-
 // Root route
 app.get('/', (req, res) => {
   res.status(200).json({

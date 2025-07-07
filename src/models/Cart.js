@@ -39,9 +39,6 @@ const cartSchema = new mongoose.Schema({
   }
 });
 
-// Unique index on cartId
-cartSchema.index({ cartId: 1 }, { unique: true });
-
 // Auto-populate product details
 cartSchema.pre(/^find/, function (next) {
   this.populate({

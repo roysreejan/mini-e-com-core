@@ -25,6 +25,14 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Root route
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    message: '🎉 Mini E-Com Core API is live!',
+  });
+});
+
 // Routes
 app.use('/api/products', productRoutes);
 app.use('/api/cart', cartRoutes);

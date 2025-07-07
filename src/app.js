@@ -3,9 +3,10 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const connectDB = require("../src/config/db");
-// const productRoutes = require('./routes/productRoutes');
-// const cartRoutes = require('./routes/cartRoutes');
-// const errorHandler = require('./middlewares/errorHandler');
+const productRoutes = require('./routes/productRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+const errorHandler = require('./middlewares/errorHandler');
+const routeHandler = require('./middlewares/routeHandler');
 
 const app = express();
 
@@ -25,18 +26,13 @@ app.get('/health', (req, res) => {
 });
 
 // Routes
-// app.use('/api/products', productRoutes);
-// app.use('/api/cart', cartRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/cart', cartRoutes);
 
-// 404 Handler
-app.use((req, res) => {
-  res.status(404).json({ 
-    error: 'Not Found',
-    path: req.originalUrl 
-  });
-});
+// Handle unmatched routes
+app.use(routeHandler);
 
 // Error Handling Middleware
-// app.use(errorHandler);
+app.use(errorHandler);
 
 module.exports = app;
